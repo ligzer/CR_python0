@@ -6,15 +6,6 @@ import shutil
 
 
 class ProxyHandler(BaseHTTPRequestHandler):
-
-    # def test_all(self):
-    #     self.headers
-    #     print(self.address_string())
-    #     print(self.path)
-    #     print(self.headers)
-    #     print(self.request)
-
-
     def do_CONNECT(self):
         print("CONNECT")
         # self.test_all()
