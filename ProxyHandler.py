@@ -5,4 +5,9 @@ import shutil
 
 
 class ProxyHandler(BaseHTTPRequestHandler):
-    pass
+
+    def do_GET(self):
+        self.send_response(HTTPStatus.OK)
+
+    def do_POST(self):
+        self.send_response(HTTPStatus.OK)
