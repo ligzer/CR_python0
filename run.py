@@ -1,4 +1,4 @@
-from http.server import HTTPServer, ThreadingHTTPServer
+from http.server import ThreadingHTTPServer
 from ProxyHandler import ProxyHandler
 
 
