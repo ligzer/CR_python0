@@ -8,7 +8,10 @@ def __add_tm_to_element__(element):
     if element.tag == 'script':
         return  # Ignore in-html scripts content
     if element.text:
-        element.text = re.sub(r'\b(\w{6})\b', r'\1™', element.text)  # Add ™-symbol
+        # Add ™-symbol
+        # TODO: fix matching words like a_-_-c
+        element.text = re.sub(r'([^a-zA-Z-]|^)([a-zA-Z][a-zA-Z0-9_-]{4}[a-zA-Z0-9])([^a-zA-Z0-9_-]|$)', r'\1\2™\3',
+                              element.text)
     for child in element.getchildren():
         __add_tm_to_element__(child)
 
