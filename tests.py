@@ -5,7 +5,7 @@ from http.server import HTTPServer
 from ProxyHandler import ProxyHandler
 from io import BytesIO
 import urllib
-from utils import __add_tm_to_element__
+from utils import __add_tm_to_element__, __change_links__
 import lxml.html
 
 class ProxyTest(unittest.TestCase):
@@ -18,9 +18,6 @@ class ProxyTest(unittest.TestCase):
 
 
 class RegExpTest(unittest.TestCase):
-
-    def setUp(self) -> None:
-        """Empty Test"""
 
     def test_5_6_7_length_words(self):
         elem_a = lxml.html.fromstring('<div><b>abcdef1</b><b>ab12ef</b><b>ab3de</b></div>')
@@ -44,6 +41,26 @@ class RegExpTest(unittest.TestCase):
         self.assertEqual(
             b'<b>a_1_2b&#8482;</b>',
             lxml.html.tostring(elem_b))
+
+
+class UrlReplaceTest(unittest.TestCase):
+
+    def test_a_https_href(self):
+        elem_a = lxml.html.fromstring(
+            '<a href="https://news.ycombinator.com/item?id=13713480">https://news.ycombinator.com/item?id=13713480</a>')
+        __change_links__(elem_a)
+        self.assertEqual(
+            b'<a href="https://localhost:8080/item?id=13713480">https://localhost:8080/item?id=13713480</a>',
+            lxml.html.tostring(elem_a))
+
+    def test_a_http_href(self):
+        elem_a = lxml.html.fromstring(
+            '<a href="http://news.ycombinator.com/item?id=13713480">http://news.ycombinator.com/item?id=13713480</a>')
+        __change_links__(elem_a)
+        self.assertEqual(
+            b'<a href="http://localhost:8080/item?id=13713480">http://localhost:8080/item?id=13713480</a>',
+            lxml.html.tostring(elem_a))
+
 
 if __name__ == '__main__':
     unittest.main()

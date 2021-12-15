@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from http import HTTPStatus
 from http.client import HTTPSConnection
-from utils import add_tm
+from utils import rebuild_page
 import shutil
 
 
@@ -41,7 +41,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
         if response.status == HTTPStatus.OK:
             if response.headers.get('Content-Type', None) == 'text/html; charset=utf-8':
                 # For html-files add tm-symbol
-                data = add_tm(response)
+                data = rebuild_page(response)
                 self.wfile.write(data)
             else:
                 # For others send original answer
