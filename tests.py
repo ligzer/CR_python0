@@ -8,6 +8,7 @@ import urllib
 from utils import __add_tm_to_element__, __change_links__
 import lxml.html
 
+
 class ProxyTest(unittest.TestCase):
 
     def setUp(self) -> None:

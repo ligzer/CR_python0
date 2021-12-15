@@ -30,7 +30,9 @@ def __change_links__(element: lxml.html.Element) -> None:
 # TODO: Find better function name
 def rebuild_page(inp_file: TextIO) -> str:
     """Replacing content of html-page"""
-    page = lxml.html.parse(inp_file)
+    # Force using utf-8 encoding
+    utf8_parser = lxml.html.HTMLParser(encoding='utf-8')
+    page = lxml.html.parse(inp_file, parser=utf8_parser)
     __add_tm_to_element__(page.getroot())
     __change_links__(page.getroot())
     return lxml.html.tostring(page, pretty_print=True)
