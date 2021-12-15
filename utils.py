@@ -22,9 +22,11 @@ def __change_links__(element: lxml.html.Element) -> None:
         url = el.get(par, None)
         # TODO: Fix for urls with multiple :// sequences
         if url.startswith('http') and url.find('://news.ycombinator.com') != -1:
-            el.set(par, url.replace('://news.ycombinator.com', '://localhost:8080'))
+            el.set(par, url.replace('http://news.ycombinator.com', 'http://localhost:8080'))
+            el.set(par, url.replace('https://news.ycombinator.com', 'http://localhost:8080'))
         if el.text:
-            el.text = el.text.replace('://news.ycombinator.com', '://localhost:8080')
+            el.text = el.text.replace('http://news.ycombinator.com', 'http://localhost:8080')
+            el.text = el.text.replace('https://news.ycombinator.com', 'http://localhost:8080')
 
 
 # TODO: Find better function name
