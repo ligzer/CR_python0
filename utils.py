@@ -51,7 +51,11 @@ def __add_tm_to_element__(element: lxml.html.Element) -> None:
                 text += __regexp_6letter_word__.sub(r'\1™', v)
             else:
                 text += v
+        # TODO: Should rename function or refactor, because it's do additinal work
+        text = text.replace('http://news.ycombinator.com', 'http://localhost:8080')
+        text = text.replace('https://news.ycombinator.com', 'http://localhost:8080')
         element.text = text
+
     for child in element.getchildren():
         __add_tm_to_element__(child)
 
@@ -64,9 +68,6 @@ def __change_links__(element: lxml.html.Element) -> None:
         if url.startswith('http') and url.find('://news.ycombinator.com') != -1:
             url = url.replace('http://news.ycombinator.com', 'http://localhost:8080')
             el.set(par, url.replace('https://news.ycombinator.com', 'http://localhost:8080'))
-        if el.text:
-            el.text = el.text.replace('http://news.ycombinator.com', 'http://localhost:8080')
-            el.text = el.text.replace('https://news.ycombinator.com', 'http://localhost:8080')
 
 
 # TODO: Find better function name

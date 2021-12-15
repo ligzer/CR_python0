@@ -61,6 +61,7 @@ class UrlReplaceTest(unittest.TestCase):
             '<a href="https://news.ycombinator.com/item?id=13713480">'
             'https://news.ycombinator.com/item?id=13713480</a>')
         __change_links__(elem_a)
+        __add_tm_to_element__(elem_a)
         self.assertEqual(
             b'<a href="http://localhost:8080/item?id=13713480">'
             b'http://localhost:8080/item?id=13713480</a>',
@@ -71,6 +72,7 @@ class UrlReplaceTest(unittest.TestCase):
             '<a href="http://news.ycombinator.com/item?id=13713480">'
             'http://news.ycombinator.com/item?id=13713480</a>')
         __change_links__(elem_a)
+        __add_tm_to_element__(elem_a)
         self.assertEqual(
             b'<a href="http://localhost:8080/item?id=13713480">'
             b'http://localhost:8080/item?id=13713480</a>',
